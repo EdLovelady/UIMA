@@ -1,0 +1,1 @@
+classpath*:uk/ac/mmu/tdmlab/journalism/StanfordNLPTypeSystem.xml
