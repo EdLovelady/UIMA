@@ -1,12 +1,18 @@
 package uk.ac.mmu.tdmlab.uima;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.pdfbox.cos.COSDocument;
+import org.apache.pdfbox.io.RandomAccessBufferedFileInputStream;
+import org.apache.pdfbox.pdfparser.PDFParser;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.uima.UimaContext;
 import org.apache.uima.cas.CAS;
 import org.apache.uima.collection.CollectionException;
@@ -63,10 +69,17 @@ public class PDFReader extends CasCollectionReader_ImplBase
   {
     String pdf = pdfs.get(counter);
 
-    String documentText = "";
+    File file = new File(directoryParam + "/" + pdf);
 
-    aCAS.setDocumentText(documentText);
+    PDFParser parser = new PDFParser(
+        new RandomAccessBufferedFileInputStream(new FileInputStream(file)));
+    parser.parse();
+    COSDocument cosDoc = parser.getDocument();
+    PDFTextStripper pdfStripper = new PDFTextStripper();
+    PDDocument pdDoc = new PDDocument(cosDoc);
+    String parsedText = pdfStripper.getText(pdDoc);
 
+    aCAS.setDocumentText(parsedText);
   }
 
   @Override
