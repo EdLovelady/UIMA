@@ -1,7 +1,10 @@
 package uk.ac.mmu.tdmlab.uima;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FilenameFilter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.uima.UimaContext;
@@ -11,6 +14,7 @@ import org.apache.uima.fit.component.CasCollectionReader_ImplBase;
 import org.apache.uima.fit.descriptor.ConfigurationParameter;
 import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.util.Progress;
+import org.apache.uima.util.ProgressImpl;
 
 public class PDFReader extends CasCollectionReader_ImplBase
 {
@@ -19,40 +23,63 @@ public class PDFReader extends CasCollectionReader_ImplBase
    * The path to the directory containing pdfs. Will pick up all files matching
    * the pattern "DIRECTORY_PATH/*.pdf"
    */
-  public static final String                        PARAM_DIRECTORY =
-      "directoryParam";
+  public static final String PARAM_DIRECTORY = "directoryParam";
   @ConfigurationParameter(name = PARAM_DIRECTORY, mandatory = true)
-  private String                                  directoryParam;
+  private String             directoryParam;
 
-  List<File> pdfs;
-  int counter;
-  
+  private List<String>       pdfs;
+  private int                counter;
+
   @Override
   public void initialize(UimaContext context)
       throws ResourceInitializationException
   {
-    
+    File directory = new File(directoryParam);
+
+    if (!directory.exists())
+      throw new ResourceInitializationException(new FileNotFoundException(
+          "The directory: " + directory + " does not exist"));
+
+    if (!directory.isDirectory())
+      throw new ResourceInitializationException(
+          new Exception("The file: " + directory + " is not a directory"));
+
+    pdfs = Arrays.asList(directory.list(new FilenameFilter()
+    {
+
+      @Override
+      public boolean accept(File dir, String name)
+      {
+        return name.matches("*.pdf");
+      }
+    }));
+
+    counter = 0;
+
   }
 
   @Override
   public void getNext(CAS aCAS) throws IOException, CollectionException
   {
-    // TODO Auto-generated method stub
+    String pdf = pdfs.get(counter);
+
+    String documentText = "";
+
+    aCAS.setDocumentText(documentText);
 
   }
 
   @Override
   public boolean hasNext() throws IOException, CollectionException
   {
-    // TODO Auto-generated method stub
-    return false;
+    return counter < pdfs.size();
   }
 
   @Override
   public Progress[] getProgress()
   {
-    // TODO Auto-generated method stub
-    return null;
+    return new Progress[] {
+        new ProgressImpl(counter, pdfs.size(), Progress.ENTITIES) };
   }
 
 }
