@@ -56,7 +56,7 @@ public class PDFReader extends CasCollectionReader_ImplBase
       @Override
       public boolean accept(File dir, String name)
       {
-        return name.matches("*.pdf");
+        return name.matches("^.*\\.pdf$");
       }
     }));
 
@@ -68,6 +68,7 @@ public class PDFReader extends CasCollectionReader_ImplBase
   public void getNext(CAS aCAS) throws IOException, CollectionException
   {
     String pdf = pdfs.get(counter);
+    counter++;
 
     File file = new File(directoryParam + "/" + pdf);
 
