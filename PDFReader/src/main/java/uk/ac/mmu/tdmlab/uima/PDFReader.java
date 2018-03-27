@@ -81,6 +81,7 @@ public class PDFReader extends CasCollectionReader_ImplBase
     String parsedText = pdfStripper.getText(pdDoc);
 
     aCAS.setDocumentText(parsedText);
+    cosDoc.close();
   }
 
   @Override
