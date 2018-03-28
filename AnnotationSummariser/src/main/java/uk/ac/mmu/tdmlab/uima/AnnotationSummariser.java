@@ -73,19 +73,17 @@ public class AnnotationSummariser extends JCasAnnotator_ImplBase
   {
 
     List<String> typeNames = new ArrayList<String>();
-    List<Type> types = new ArrayList<Type>();
     for (String typeName : typeListParam)
     {
       Type type = jCas.getTypeSystem().getType(typeName);
       if (type != null)
       {
-        types.add(type);
         typeNames.add(type.getName());
       } else
         throw new AnalysisEngineProcessException(new Exception("The type '"
             + typeName + "' could not be found in the type system."));
     }
-
+    
     Collection<TOP> allAnnotations = JCasUtil.selectAll(jCas);
     for (TOP top : allAnnotations)
     {
