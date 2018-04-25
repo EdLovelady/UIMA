@@ -55,9 +55,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>uk.ac.mmu.tdmlab.journalism</groupId>
+			<groupId>uk.ac.mmu.tdmlab.uima</groupId>
 			<artifactId>StanfordNLPTypeSystem</artifactId>
-			<version>2.0.0</version>
+			<version>3.0.0</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
