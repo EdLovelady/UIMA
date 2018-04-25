@@ -57,7 +57,7 @@
 		<dependency>
 			<groupId>uk.ac.mmu.tdmlab.journalism</groupId>
 			<artifactId>StanfordNLPTypeSystem</artifactId>
-			<version>2.0.0-SNAPSHOT</version>
+			<version>2.0.0</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
