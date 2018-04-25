@@ -9,10 +9,10 @@ import org.apache.uima.fit.component.JCasAnnotator_ImplBase;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ResourceInitializationException;
 
-import uk.ac.mmu.tdmlab.journalism.Location;
-import uk.ac.mmu.tdmlab.journalism.Organisation;
-import uk.ac.mmu.tdmlab.journalism.Person;
-import uk.ac.mmu.tdmlab.journalism.Time;
+import uk.ac.mmu.tdmlab.uima.Location;
+import uk.ac.mmu.tdmlab.uima.Organisation;
+import uk.ac.mmu.tdmlab.uima.Person;
+import uk.ac.mmu.tdmlab.uima.Time;
 
 import edu.stanford.nlp.pipeline.CoreDocument;
 import edu.stanford.nlp.pipeline.CoreEntityMention;
