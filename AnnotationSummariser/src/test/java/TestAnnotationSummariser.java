@@ -3,8 +3,8 @@ import org.apache.uima.fit.factory.AnalysisEngineFactory;
 import org.apache.uima.fit.factory.JCasFactory;
 import org.apache.uima.jcas.JCas;
 
-import uk.ac.mmu.tdmlab.journalism.Location;
-import uk.ac.mmu.tdmlab.journalism.Person;
+import uk.ac.mmu.tdmlab.uima.Location;
+import uk.ac.mmu.tdmlab.uima.Person;
 import uk.ac.mmu.tdmlab.uima.AnnotationSummariser;
 
 public class TestAnnotationSummariser
@@ -25,8 +25,8 @@ public class TestAnnotationSummariser
     AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(
         AnnotationSummariser.class, AnnotationSummariser.PARAM_FILE_NAME,
         "src/main/resources/summary.txt", AnnotationSummariser.PARAM_TYPE_LIST,
-        new String[] { "uk.ac.mmu.tdmlab.journalism.Person",
-            "uk.ac.mmu.tdmlab.journalism.Location" },
+        new String[] { "uk.ac.mmu.tdmlab.uima.Person",
+            "uk.ac.mmu.tdmlab.uima.Location" },
         AnnotationSummariser.PARAM_TOP_N, 2 );
 
     analysisEngine.process(jCas);
