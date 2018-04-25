@@ -4,31 +4,31 @@
     <description>Type System Description for Stanford NLP components used in 
      text mining for journalism project</description>
     <vendor>MMU Text Mining Lab</vendor>
-    <version>1.0</version>
+    <version>2.0</version>
     <types>
       <typeDescription>
-        <name>uk.ac.mmu.tdmlab.journalism.Person</name>
+        <name>uk.ac.mmu.tdmlab.uima.Person</name>
         <description></description>
         <supertypeName>uima.tcas.Annotation</supertypeName>
         <features>
         </features>
       </typeDescription>
       <typeDescription>
-        <name>uk.ac.mmu.tdmlab.journalism.Organisation</name>
+        <name>uk.ac.mmu.tdmlab.uima.Organisation</name>
         <description></description>
         <supertypeName>uima.tcas.Annotation</supertypeName>
         <features>
         </features>
       </typeDescription>
       <typeDescription>
-        <name>uk.ac.mmu.tdmlab.journalism.Location</name>
+        <name>uk.ac.mmu.tdmlab.uima.Location</name>
         <description></description>
         <supertypeName>uima.tcas.Annotation</supertypeName>
         <features>
         </features>
       </typeDescription>
       <typeDescription>
-        <name>uk.ac.mmu.tdmlab.journalism.Time</name>
+        <name>uk.ac.mmu.tdmlab.uima.Time</name>
         <description></description>
         <supertypeName>uima.tcas.Annotation</supertypeName>
         <features>
