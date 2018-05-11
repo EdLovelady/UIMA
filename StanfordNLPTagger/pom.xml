@@ -3,7 +3,79 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>uk.ac.mmu.tdmlab.journalism</groupId>
 	<artifactId>StanfordNLPTagger</artifactId>
-	<version>1.0.0</version>
+	<version>1.1.0</version>
+
+	<packaging>jar</packaging>
+
+	<name>Stanford NLP Tagger</name>
+	<description>Wraps the Stanford NLP tagger and extracts annotations of interest to journalists</description>
+	<url>https://github.com/MMU-TDMLab/Journalism/tree/master/StanfordNLPTagger</url>
+
+	<licenses>
+		<license>
+			<name>The MIT License</name>
+			<url>https://opensource.org/licenses/MIT</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>dev1</id>
+			<name>Matthew shardlow</name>
+			<email>m.shardlow@mmu.ac.uk</email>
+			<organization>Manchester Metropolitan University</organization>
+			<organizationUrl>http://www2.mmu.ac.uk/</organizationUrl>
+			<roles>
+				<role>Lecturer</role>
+			</roles>
+			<timezone>0</timezone>
+			<properties>
+				<orcid>0000-0003-1129-2750</orcid>
+			</properties>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:git://github.com/MMU-TDMLab/UIMA.git</connection>
+		<developerConnection>scm:git:git@github.com:MMU-TDMLab/UIMA.git</developerConnection>
+		<url>https://github.com/MMU-TDMLab/UIMA/tree/master/StanfordNLPTagger/</url>
+	</scm>
+
+
+	<distributionManagement>
+		<repository>
+			<id>ossrh</id>
+			<name>Sonatype OSS staging</name>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+			<layout>default</layout>
+		</repository>
+	</distributionManagement>
+
+
+	<profiles>
+		<profile>
+			<id>gpg-sign</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.6</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
 	<build>
 		<resources>
 			<resource>
@@ -19,24 +91,6 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.6</version>
-				<configuration>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-				</configuration>
-				<executions>
-					<execution>
-						<id>make-assembly</id> <!-- this is used for inheritance merges -->
-						<phase>package</phase> <!-- bind to the packaging phase -->
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 
 		</plugins>
 	</build>
@@ -45,7 +99,7 @@
 		<dependency>
 			<groupId>org.apache.uima</groupId>
 			<artifactId>uimaj-core</artifactId>
-			<version>3.0.0</version>
+			<version>2.10.2</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/edu.stanford.nlp/stanford-corenlp -->
@@ -72,13 +126,13 @@
 		<dependency>
 			<groupId>uk.ac.mmu.tdmlab.uima</groupId>
 			<artifactId>StanfordNLPTypeSystem</artifactId>
-			<version>3.0.0</version>
+			<version>3.1.0</version>
 		</dependency>
 
 		<dependency>
 			<groupId>uk.ac.mmu.tdmlab.uima</groupId>
 			<artifactId>LightweightCVD</artifactId>
-			<version>1.0.0</version>
+			<version>1.1.0</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
