@@ -16,11 +16,37 @@ import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.cas.Type;
 import org.apache.uima.fit.component.JCasAnnotator_ImplBase;
 import org.apache.uima.fit.descriptor.ConfigurationParameter;
+import org.apache.uima.fit.descriptor.LanguageCapability;
+import org.apache.uima.fit.descriptor.TypeCapability;
 import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.cas.TOP;
 import org.apache.uima.jcas.tcas.Annotation;
 import org.apache.uima.resource.ResourceInitializationException;
+
+import eu.openminted.share.annotations.api.Component;
+import eu.openminted.share.annotations.api.DataFormat;
+import eu.openminted.share.annotations.api.ResourceInput;
+import eu.openminted.share.annotations.api.ResourceOutput;
+import eu.openminted.share.annotations.api.constants.CharacterEncoding;
+import eu.openminted.share.annotations.api.constants.DataFormatType;
+import eu.openminted.share.annotations.api.constants.OperationType;
+import eu.openminted.share.annotations.api.constants.ProcessingResourceType;
+
+
+@Component(OperationType.SUMMARIZER)
+@ResourceInput(
+        type = ProcessingResourceType.CORPUS,
+        encoding = CharacterEncoding.UTF_8,
+        dataFormat = @DataFormat(dataFormat = DataFormatType.BINARY_CAS))
+@ResourceOutput(
+        type = ProcessingResourceType.DOCUMENT,
+        encoding = CharacterEncoding.UTF_8,
+        dataFormat = @DataFormat(dataFormat = DataFormatType.TEXT))
+@LanguageCapability("en")
+@TypeCapability(
+        inputs = {}, 
+        outputs = {})
 
 public class AnnotationSummariser extends JCasAnnotator_ImplBase
 {

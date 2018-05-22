@@ -1,14 +1,88 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>uk.ac.mmu.tdmlab.uima</groupId>
-  <artifactId>AnnotationSummariser</artifactId>
-  <version>1.1.0</version>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>uk.ac.mmu.tdmlab.uima</groupId>
+	<artifactId>AnnotationSummariser</artifactId>
+	<version>1.2.0</version>
+	<packaging>jar</packaging>
+
+	<name>Annotation Summariser</name>
+	<description>A component for summarising the contents of the CAS</description>
+	<url>https://github.com/UIMA/AnnotationSummariser</url>
+
+	<scm>
+		<connection>scm:git:git://github.com/UIMA/AnnotationSummariser.git</connection>
+		<developerConnection>scm:git:git@github.com:UIMA/AnnotationSummariser.git</developerConnection>
+		<url>https://github.com/UIMA/AnnotationSummariser/</url>
+	</scm>
+
+	<developers>
+		<developer>
+			<id>dev1</id>
+			<name>Matthew shardlow</name>
+			<email>m.shardlow@mmu.ac.uk</email>
+			<organization>Manchester Metropolitan University</organization>
+			<organizationUrl>http://www2.mmu.ac.uk/</organizationUrl>
+			<roles>
+				<role>Lecturer</role>
+			</roles>
+			<timezone>0</timezone>
+			<properties>
+				<orcid>0000-0003-1129-2750</orcid>
+			</properties>
+		</developer>
+	</developers>
+
+	<licenses>
+		<license>
+			<name>The MIT License</name>
+			<url>https://opensource.org/licenses/MIT</url>
+		</license>
+	</licenses>
+
+
+	<distributionManagement>
+		<repository>
+			<id>ossrh</id>
+			<name>Sonatype OSS staging</name>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+			<layout>default</layout>
+		</repository>
+	</distributionManagement>
+
+	<profiles>
+		<profile>
+			<id>gpg-sign</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.6</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+
+
 	<build>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
 			</resource>
 		</resources>
+		<sourceDirectory>src/main/java/</sourceDirectory>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -19,19 +93,49 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.6</version>
+				<groupId>org.apache.uima</groupId>
+				<artifactId>uimafit-maven-plugin</artifactId>
+				<version>2.4.0</version> <!-- change to latest version -->
 				<configuration>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
+					<!-- OPTIONAL -->
+					<!-- Path where the generated resources are written. -->
+					<outputDirectory>
+						src/main/resources/
+					</outputDirectory>
+
+					<!-- OPTIONAL -->
+					<!-- Skip generation of META-INF/org.apache.uima.fit/components.txt -->
+					<skipComponentsManifest>true</skipComponentsManifest>
+
+					<!-- OPTIONAL -->
+					<!-- Source file encoding. -->
+					<encoding>UTF-8</encoding>
 				</configuration>
 				<executions>
 					<execution>
-						<id>make-assembly</id> <!-- this is used for inheritance merges -->
-						<phase>package</phase> <!-- bind to the packaging phase -->
+						<id>default</id>
+						<phase>process-classes</phase>
 						<goals>
-							<goal>single</goal>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>eu.openminted.share.annotations</groupId>
+				<artifactId>omtd-share-annotations-maven-plugin</artifactId>
+				<version>3.0.2.5</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+					<uimaTypeMappings>
+						<uimaTypeMapping>META-INF/eu.openminted.share/uimaTypeMapping.map</uimaTypeMapping>
+					</uimaTypeMappings>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>generate</goal>
 						</goals>
 					</execution>
 				</executions>
@@ -55,10 +159,10 @@
 		</dependency>
 
 		<dependency>
-			<groupId>uk.ac.mmu.tdmlab.uima</groupId>
-			<artifactId>StanfordNLPTypeSystem</artifactId>
-			<version>3.1.0</version>
-			<scope>test</scope>
+			<groupId>eu.openminted.share.annotations</groupId>
+			<artifactId>omtd-share-annotations-api</artifactId>
+			<version>3.0.2.5</version>
 		</dependency>
+
 	</dependencies>
 </project>
